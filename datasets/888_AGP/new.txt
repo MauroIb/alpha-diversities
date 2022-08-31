@@ -1,0 +1,13 @@
+qiime feature-table rarefy \                  
+                            --i-table table.qza \
+                            --p-sampling-depth 5400 \
+                            --o-rarefied-table rarefied-table.qza
+                            
+                            hacer export de table.qzv, calcular 1er cuartil en pandas / 2, usar como variable para
+                            sampling deph
+                            
+                            
+                           qiime tools export   --input-path rarefied-table.qza   --output-path rarefied-table.tsv
+
+biom convert -i feature-table.biom -o feature-table-rare.tsv --to-tsv
+

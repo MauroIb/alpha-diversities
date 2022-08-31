@@ -1,0 +1,6 @@
+LONGITUDINAL
+layout: paired
+amplicon 16S V3-V4 libraries pooled by equal volume
+per run
+
+

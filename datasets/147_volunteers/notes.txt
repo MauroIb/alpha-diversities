@@ -1,0 +1,57 @@
+Demultiplexed paired end reads
+fastq from dropbox. sraRunTable from corrs_proyect
+Created fastq manifest with 16s tool
+Merged manifest with sraRunTable manually. Verified with keemei
+Missing run ERR3619074 fastq. Deleted from metadata
+
+#Importar secuencias a qiime
+qiime tools import \
+--type 'SampleData[PairedEndSequencesWithQuality]' \
+--input-path fastq_manifest.csv \
+--output-path paired_end_demux.qza \
+--input-format PairedEndFastqManifestPhred33 
+
+
+#Check QC (FastQC, Fastp, etc)
+qiime demux summarize \
+--i-data paired_end_demux.qza \
+--o-visualization demux.qzv
+
+#Denoising con DADA2
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs paired_end_demux.qza \
+  --p-trim-left-f 20 \
+  --p-trim-left-r 40 \
+  --p-trunc-len-f 120 \
+  --p-trunc-len-r 95 \
+  --o-table table.qza \
+  --o-representative-sequences rep-seqs.qza \
+  --o-denoising-stats denoising-stats.qza  \
+  --p-n-threads 0  \
+  --verbose
+  
+  
+qiime feature-table summarize \
+  --i-table table.qza \
+  --o-visualization table.qzv \
+  --m-sample-metadata-file sample-metadata.tsv
+
+qiime feature-table tabulate-seqs \
+  --i-data rep-seqs.qza \
+  --o-visualization rep-seqs.qzv
+
+qiime metadata tabulate \
+  --m-input-file denoising-stats.qza \
+  --o-visualization denoising-stats.qzv
+  
+  qiime deblur denoise-16S \
+ --i-demultiplexed-seqs paired_end_demux.qza \
+ --p-left-trim-len 20 \
+ --p-trim-length 120 \
+ --o-representative-sequences rep-seqs.qza \
+ --o-table table.qza \
+ --p-sample-stats \
+ --o-stats deblur-stats.qza 
+ --p-jobs-to-start 4
+ 
+  

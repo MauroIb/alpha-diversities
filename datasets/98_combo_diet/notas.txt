@@ -1,0 +1,1 @@
+Revisar metadata, ver si se fultra por sample_accession o que haces porque tira error porque los sample_id se repiten

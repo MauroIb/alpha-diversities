@@ -1,0 +1,64 @@
+#en carpeta 16s_app corremos app.py, cambiando antes path a carpeta fastas
+python app.py
+
+#corremos paired_end_demux.qza a carpeta qiime aparte y trabajamos desde ahi.
+
+#Check QC (FastQC, Fastp, etc) para elegir parametros de proximo paso
+qiime demux summarize \
+--i-data paired_end_demux_trimm.qza \
+--o-visualization demux.qzv
+
+Trimm primers
+qiime cutadapt trim-paired \
+--i-demultiplexed-sequences paired_end_demux.qza \
+--p-cores 4 \
+--o-trimmed-sequences paired_end_demux_trimm.qza 
+
+#denoise con dada 2 (illumiina)
+
+qiime dada2 denoise-paired \
+  --i-demultiplexed-seqs paired_end_demux.qza \
+  --p-trim-left-f 20 \
+  --p-trim-left-r 18 \
+  --p-trunc-len-f 240 \
+  --p-trunc-len-r 190 \
+  --o-table table.qza \
+  --o-representative-sequences rep-seqs.qza \
+  --o-denoising-stats denoising-stats.qza \
+  --p-n-threads 0  \
+  --verbose
+  
+# Visualizaciones
+  
+qiime feature-table summarize \
+  --i-table table.qza \
+  --o-visualization table.qzv 
+
+qiime feature-table tabulate-seqs \
+  --i-data rep-seqs.qza \
+  --o-visualization rep-seqs.qzv
+
+qiime metadata tabulate \
+  --m-input-file denoising-stats.qza \
+  --o-visualization denoising-stats.qzv
+  
+  
+# Taxonomy
+
+qiime feature-classifier classify-consensus-vsearch \
+--i-query rep-seqs.qza \
+--i-reference-reads /media/mauro/WorkENV/Tesis/silva/silva-138-99-seqs.qza \
+--i-reference-taxonomy /media/mauro/WorkENV/Tesis/silva/silva-138-99-tax.qza \
+--o-classification taxonomy.qza \
+--p-threads 8
+  
+  qiime feature-classifier classify-sklearn \
+  --i-classifier /media/mauro/WorkENV/Tesis/silva/silva-138-99-515-806-nb-classifier.qza \
+  --i-reads rep-seqs.qza \
+  --o-classification taxonomy.qza 
+  
+  qiime taxa barplot \
+  --i-table table.qza \
+  --i-taxonomy taxonomy.qza \
+  --m-metadata-file sample-metadata.tsv \
+  --o-visualization taxa-bar-plots.qzv
