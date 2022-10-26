@@ -1,0 +1,8 @@
+numpy
+matplotly
+seaborn
+pandas
+plotly
+dash
+dash_bio
+scipy
