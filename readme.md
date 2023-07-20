@@ -1,5 +1,6 @@
 ## Alpha Diversity Analysis
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8170289.svg)](https://doi.org/10.5281/zenodo.8170289)
 This repository contains the raw data necesary used for the analysis of different alpha diversity metrics.
 
 ### Sample processing
