@@ -1,8 +1,6 @@
-numpy
-matplotly
-seaborn
-pandas
-plotly
-dash
-dash_bio
-scipy
+numpy == 1.25.1
+matplotlib == 3.7.2
+seaborn == 0.12.2
+pandas == 2.0.3
+plotly == 5.15.0
+scipy == 1.11.1

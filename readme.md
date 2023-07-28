@@ -1,13 +1,13 @@
 ## Alpha Diversity Analysis
 
-This repository contains the raw data necesary used for the analysis of different alpha diversity metrics.
+This repository contains the data necesary used for the analysis of different alpha diversity metrics.
 
 ### Sample processing
 
 All sample processing was done using QIIME2 https://qiime2.org/ on an anaconda virtual enviroment. 
 Each dataset was downloaded from the SRA using sra-tools https://github.com/ncbi/sra-tools. Raw sample data is not shared through this repository due to their size, however the accession numbers are available within each dataset's folder (./datasets/xx_dataset_alias/SraRunTable.txt or similar)
 
-Each dataset was processed following QIIME2's best practices. All the commands used for sample processing can be found the /pipeline_scripts directory.
+Each dataset was processed following QIIME2's best practices. All the commands used for sample processing can be found the /pipeline_scripts directory. If you wish to perform the sample processing from the ground up, please refer to the qiime2 documentation for setup. A template of the commandas ran can be found under pipeline_scipts/workflow.txt. Our workflows were ran on qiime 2022.2.0, but should be compatible with newer versions of the code.
 
 ### Alpha diversity data and visualization
 
@@ -31,3 +31,4 @@ To run the notebooks you can perform the following steps:
 
 
 These steps may vary depending on your platform, check https://docs.python.org/es/3/library/venv.html for more information
+
