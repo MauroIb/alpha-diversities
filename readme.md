@@ -1,6 +1,8 @@
 ## Alpha Diversity Analysis
 
-This repository contains the data necesary used for the analysis of different alpha diversity metrics.
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8170289.svg)](https://doi.org/10.5281/zenodo.8170289)
+
+This repository contains the raw data necesary used for the analysis of different alpha diversity metrics.
 
 ### Sample processing
 
@@ -31,4 +33,3 @@ To run the notebooks you can perform the following steps:
 
 
 These steps may vary depending on your platform, check https://docs.python.org/es/3/library/venv.html for more information
-
